@@ -1,0 +1,199 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile document",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 255 },
+        "displayName": { "type": "string", "maxLength": 100 },
+        "photoURL": { "type": "string", "maxLength": 500 },
+        "role": { "type": "string", "enum": ["customer", "admin"], "maxLength": 20 },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Product catalog item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 300 },
+        "brand": { "type": "string", "maxLength": 100 },
+        "category": { "type": "string", "maxLength": 100 },
+        "price": { "type": "number" },
+        "mrp": { "type": "number" },
+        "discountPercent": { "type": "number" },
+        "rating": { "type": "number" },
+        "reviewCount": { "type": "number" },
+        "stock": { "type": "number" },
+        "images": { "type": "array" },
+        "description": { "type": "string", "maxLength": 2000 },
+        "specifications": { "type": "object" },
+        "isBestSeller": { "type": "boolean" },
+        "isDealOfDay": { "type": "boolean" },
+        "isBharatAssured": { "type": "boolean" },
+        "freeDelivery": { "type": "boolean" },
+        "deliveryDays": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["title", "category", "price", "mrp", "stock"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "Product category",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 100 },
+        "name": { "type": "string", "maxLength": 100 },
+        "slug": { "type": "string", "maxLength": 100 },
+        "image": { "type": "string", "maxLength": 500 },
+        "itemCount": { "type": "number" }
+      },
+      "required": ["name", "slug"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer purchase order",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "items": { "type": "array" },
+        "subtotal": { "type": "number" },
+        "deliveryFee": { "type": "number" },
+        "discount": { "type": "number" },
+        "couponCode": { "type": "string", "maxLength": 50 },
+        "total": { "type": "number" },
+        "shippingAddress": { "type": "object" },
+        "paymentMethod": { "type": "string", "enum": ["cod", "upi", "card", "netbanking"], "maxLength": 30 },
+        "paymentStatus": { "type": "string", "enum": ["pending", "paid", "failed"], "maxLength": 30 },
+        "orderStatus": { "type": "string", "enum": ["placed", "confirmed", "shipped", "out_for_delivery", "delivered", "cancelled"], "maxLength": 30 },
+        "trackingNumber": { "type": "string", "maxLength": 100 },
+        "statusHistory": { "type": "array" },
+        "cancelReason": { "type": "string", "maxLength": 300 },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "items", "total", "shippingAddress", "paymentMethod", "orderStatus"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "Customer product review",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "productId": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "userName": { "type": "string", "maxLength": 100 },
+        "rating": { "type": "number" },
+        "title": { "type": "string", "maxLength": 200 },
+        "comment": { "type": "string", "maxLength": 2000 },
+        "isVerifiedPurchase": { "type": "boolean" },
+        "helpfulVotes": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["productId", "userId", "userName", "rating", "comment"]
+    },
+    "Coupon": {
+      "title": "Coupon",
+      "description": "Discount coupon code",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 50 },
+        "code": { "type": "string", "maxLength": 50 },
+        "discountType": { "type": "string", "enum": ["percentage", "fixed"], "maxLength": 20 },
+        "value": { "type": "number" },
+        "minOrderValue": { "type": "number" },
+        "maxDiscount": { "type": "number" },
+        "active": { "type": "boolean" },
+        "description": { "type": "string", "maxLength": 200 }
+      },
+      "required": ["code", "discountType", "value", "active"]
+    },
+    "Address": {
+      "title": "Address",
+      "description": "Saved customer delivery address",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "fullName": { "type": "string", "maxLength": 100 },
+        "mobileNumber": { "type": "string", "maxLength": 15 },
+        "addressLine1": { "type": "string", "maxLength": 255 },
+        "addressLine2": { "type": "string", "maxLength": 255 },
+        "landmark": { "type": "string", "maxLength": 150 },
+        "city": { "type": "string", "maxLength": 100 },
+        "state": { "type": "string", "maxLength": 100 },
+        "pincode": { "type": "string", "maxLength": 10 },
+        "isDefault": { "type": "boolean" }
+      },
+      "required": ["userId", "fullName", "mobileNumber", "addressLine1", "city", "state", "pincode"]
+    },
+    "Wishlist": {
+      "title": "Wishlist",
+      "description": "User wishlist item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "productId": { "type": "string", "maxLength": 128 },
+        "addedAt": { "type": "string" }
+      },
+      "required": ["userId", "productId"]
+    },
+    "Cart": {
+      "title": "Cart",
+      "description": "User shopping cart",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "maxLength": 128 },
+        "items": { "type": "array" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "items"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Product catalog items"
+    },
+    "/categories/{categoryId}": {
+      "schema": "Category",
+      "description": "Categories catalog"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Customer purchase orders"
+    },
+    "/reviews/{reviewId}": {
+      "schema": "Review",
+      "description": "Customer product reviews"
+    },
+    "/coupons/{couponId}": {
+      "schema": "Coupon",
+      "description": "Promotional coupons"
+    },
+    "/addresses/{addressId}": {
+      "schema": "Address",
+      "description": "Customer delivery addresses"
+    },
+    "/wishlists/{wishlistId}": {
+      "schema": "Wishlist",
+      "description": "Saved user wishlist items"
+    },
+    "/carts/{cartId}": {
+      "schema": "Cart",
+      "description": "User shopping carts"
+    }
+  }
+}

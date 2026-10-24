@@ -1,0 +1,6 @@
+{
+  "name": "BharatBazaar - India's Online Marketplace",
+  "description": "Full-stack Indian e-commerce web application inspired by Amazon India with comprehensive product catalog, pincode delivery, deals, wishlist, persistent cart, checkout, admin portal, and AI shopping assistant.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
